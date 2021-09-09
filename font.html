@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+
+<html>
+<head>
+  <title>Font</title>
+  <link rel="stylesheet"
+        href="styling.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+  </script>
+
+  <script>
+    var script;
+
+    function loadscript(url, callback) {
+      var head = document.head;
+
+      script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = url;
+      script.id = "lazyscript";
+      script.onreadystatechange = callback;
+      script.onload = callback;
+
+      head.appendChild(script);
+    }
+
+    var script_loaded = function () {
+      const obj = JSON.parse(text);
+      const fonts = obj[0]['contents'];
+
+      var fontname = window.location.href.split('=').pop()
+      var fontlist = fonts.filter(x => x.name === fontname);
+      var changedsizelist = fontlist[0].contents;
+
+      for (let j = 0; j < changedsizelist.length; j++) {
+        glyphlist = changedsizelist[j].contents;
+        console.log(glyphlist);
+        fontsize = changedsizelist[j].name;
+
+        let div = document.getElementById("buttons");
+
+        let dropdowndiv = document.createElement("div");
+        dropdowndiv.className = "dropdown"
+        dropdowndiv.id = ':' + fontsize;
+
+        let button = document.createElement("button");
+        button.className = "dropbtn collapsible";
+        button.innerText = 'Glyphs Changed for font size:' + fontsize;
+
+        dropdowndiv.appendChild(button);
+
+        let ddcontent = document.createElement("div");
+        ddcontent.id = 'ddc' + fontsize;
+        ddcontent.className = "dropdowncontent";
+
+        dropdowndiv.appendChild(ddcontent);
+        div.appendChild(dropdowndiv);
+
+        for (let k = 0; k < glyphlist.length; k++) {
+          glyphindex = glyphlist[k].name;
+          let dropdowndiv = document.getElementById(':' + fontsize);
+          let ddcontent = document.getElementById('ddc' + fontsize);
+          let link = document.createElement("a");
+          link.href = 'glyph.html?stuff=' + fontname +
+                      '-' + fontsize + '-' + glyphindex;
+
+          link.innerText = glyphindex;
+          ddcontent.appendChild(link);
+        }
+      }
+    };
+
+    loadscript("index.js", script_loaded);
+
+    $("#dropdowndiv").click(function () {
+      $("#ddcontent").toggle();
+    });
+  </script>
+</head>
+
+<body>
+  <div class="containerfont">
+    <div class="row text-center h-100">
+      <div class="col head">
+        <div id="buttons">
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

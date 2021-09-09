@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<meta charset="utf-8"/>
+<html>
+   
+<head>
+  <title>Index</title>
+  <link rel="stylesheet"
+      href="styling.css">
+</head>
+ 
+<body>
+
+  <div class="row text-center h-100">
+    <div class="col-md-6 text-center">
+      <title>Image Comparison Tool</title>
+    </div>
+  </div>
+
+  <div class="row text-center h-100">
+    <div class="col-md-3 text-center my-auto">
+      <div id="fontlist">
+      </div>
+   </div>
+  </div>    
+
+  <script>
+    var script;
+    
+    function loadscript(url, callback) {
+      var head = document.head;
+
+      script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = url;
+      script.id = "lazyscript";
+      script.onreadystatechange = callback;
+      script.onload = callback;
+
+      head.appendChild(script);
+    }
+              
+    var script_loaded = function() {
+      const obj = JSON.parse(text);
+      const fonts = obj[0]['contents'];
+                      
+      for (let i = 0; i<fonts.length; i++) {
+        console.log("Checking: " + fonts[i].name);
+      
+      if(fonts[i]['contents'].length == 0) {
+        console.log('No Regressions!');
+      }
+    
+      else{
+        console.log('Regressions Found!');
+        fontname = fonts[i].name;
+        var fontlist = fonts.filter(x => x.name === fontname);
+        var changedsizelist = fontlist[0].contents;
+        let list = document.getElementById("fontlist");
+                
+        let li = document.createElement("div");
+        li.className = "card card-block waves-effect waves-light d-flex #90caf9 buttonnindex rounded blue darken-2"
+    
+        let a = document.createElement("a");
+        a.className = "card-body align-items-center d-flex white-text justify-content-center"
+        a.href = 'font.html?stuff=' + fontname;
+        a.innerText = fontname;
+        let b = document.createElement("p");
+        b.className = "action"
+    
+        for( let j=0; j<changedsizelist.length; j++) {
+        glyphlist = changedsizelist[j].contents;
+        for(let k=0; k<glyphlist.length; k++){
+        glyphindex = 0;
+        glyphindex  = glyphlist.length + glyphindex;
+                          
+        b.innerText = "Font sizes regressed : " + fonts[i]['contents'].length ;
+        }
+        }
+        
+        li.appendChild(a);
+        li.appendChild(b);
+        list.appendChild(li);
+                
+        }
+      }
+    };
+              
+    loadscript("index.js", script_loaded);
+  
+  </script>
+
+</body>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</html>
+
