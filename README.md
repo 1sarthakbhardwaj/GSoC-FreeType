@@ -38,4 +38,4 @@ if you want to add/remove a font,\ simply add/remove its font file there.
  are located in an array `fontsize_array` in both scripts,  
 it can be used to configure which font sizes should be tested.
 
-## Since FreeType is on GitLab, you can see my branch here : [https://gitlab.freedesktop.org/thesarthakbhardwaj/regressiontest/-/tree/Sarthak-GSOC-2021](https://gitlab.freedesktop.org/thesarthakbhardwaj/regressiontest/-/tree/Sarthak-GSOC-2021) 
+Since FreeType is on GitLab, you can see my branch here : [https://gitlab.freedesktop.org/thesarthakbhardwaj/regressiontest/-/tree/Sarthak-GSOC-2021](https://gitlab.freedesktop.org/thesarthakbhardwaj/regressiontest/-/tree/Sarthak-GSOC-2021) 
